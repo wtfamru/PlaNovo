@@ -18,6 +18,7 @@ PlaNovo is an intelligent, agentic workflow platform designed to be the autopilo
 - **UI Framework**: shadcn/ui with Tailwind CSS
 - **Styling**: Custom PlaNovo design system
 - **Icons**: Lucide React
+- **Testing**: Jest with React Testing Library
 - **Authentication**: Clerk (planned)
 - **Backend**: FastAPI & Python (planned)
 - **Database**: PostgreSQL (planned)
@@ -42,19 +43,27 @@ PlaNovo is an intelligent, agentic workflow platform designed to be the autopilo
 - **Loading states** during authentication
 - **Responsive design** for mobile and desktop
 - **Navigation integration** with proper routing
+- **Beautiful split-screen layout** with decorative elements
 
 #### 3. **Dashboard Foundation (`/dashboard`)**
 - **Sidebar navigation** with key sections
 - **User profile area** with logout functionality
 - **Responsive layout** ready for content integration
 - **Navigation between pages** with proper routing
+- **Dashboard cards** for project overview
 
 #### 4. **Design System**
 - **Custom color palette**: PlaNovo brand colors
 - **Typography**: Outfit and Syne fonts
-- **Component library**: shadcn/ui integration
+- **Component library**: shadcn/ui integration with 40+ components
 - **Responsive design**: Mobile-first approach
 - **Consistent styling**: Across all pages
+
+#### 5. **Testing Infrastructure**
+- **Jest configuration** with React Testing Library
+- **Component tests** for login form and navigation
+- **Test coverage** reporting setup
+- **CI/CD ready** testing pipeline
 
 ### 🔄 **In Progress**
 - **AI Requirements Analyst**: Conversational UI for SRS generation
@@ -123,6 +132,10 @@ PlaNovo is an intelligent, agentic workflow platform designed to be the autopilo
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
+- `npm test` - Run Jest tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage report
+- `npm run test:ci` - Run tests for CI environment
 
 ## 🎨 Design System
 
@@ -140,21 +153,32 @@ PlaNovo is an intelligent, agentic workflow platform designed to be the autopilo
 ## 📁 Project Structure
 
 ```
-src/
-├── app/                    # Next.js App Router
-│   ├── dashboard/         # Dashboard pages
-│   ├── login/            # Authentication pages
-│   ├── globals.css       # Global styles
-│   ├── layout.tsx        # Root layout
-│   └── page.tsx          # Landing page
-├── components/            # React components
-│   ├── ui/              # shadcn/ui components
-│   ├── navigation.tsx    # Navigation component
-│   ├── hero-section.tsx  # Landing page hero
-│   ├── login-form.tsx    # Login form
-│   └── dashboard-*.tsx   # Dashboard components
-├── lib/                  # Utility functions
-└── hooks/                # Custom React hooks
+planovo/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── dashboard/         # Dashboard pages
+│   │   ├── login/            # Authentication pages
+│   │   ├── globals.css       # Global styles
+│   │   ├── layout.tsx        # Root layout
+│   │   └── page.tsx          # Landing page
+│   ├── components/            # React components
+│   │   ├── ui/              # shadcn/ui components (40+ components)
+│   │   ├── __tests__/       # Component tests
+│   │   ├── navigation.tsx    # Navigation component
+│   │   ├── hero-section.tsx  # Landing page hero
+│   │   ├── login-form.tsx    # Login form
+│   │   ├── dashboard-*.tsx   # Dashboard components
+│   │   ├── features-section.tsx # Features showcase
+│   │   ├── cta-section.tsx   # Call-to-action
+│   │   └── footer.tsx        # Footer component
+│   ├── lib/                  # Utility functions
+│   └── hooks/                # Custom React hooks
+├── public/                   # Static assets
+├── jest.config.js           # Jest configuration
+├── jest.setup.js            # Jest setup
+├── tailwind.config.ts       # Tailwind configuration
+├── tsconfig.json            # TypeScript configuration
+└── package.json             # Dependencies and scripts
 ```
 
 ## 🔧 Development Guidelines
@@ -177,18 +201,46 @@ src/
 - Ensure responsive design
 - Maintain accessibility standards
 
+## 🧪 Testing
+
+### Testing Strategy
+- **Unit Tests**: Jest with React Testing Library for component testing
+- **Component Tests**: Testing individual UI components
+- **Integration Tests**: Testing component interactions
+- **E2E Tests**: Playwright for user workflows (planned)
+
+### Test Commands
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests for CI environment
+npm run test:ci
+```
+
+### Current Test Coverage
+- ✅ **Login Form**: Form validation and user interactions
+- ✅ **Navigation**: Component rendering and navigation links
+- 🔄 **Additional Components**: More component tests in progress
+
 ## 🔄 Continuous Integration
 
-### GitHub Actions Workflow
+### GitHub Actions Workflow (Planned)
 
-Our CI/CD pipeline ensures code quality and automated testing:
+Our CI/CD pipeline will ensure code quality and automated testing:
 
 #### **Workflow Triggers**
 - **Push to main branch**: Automatic testing and deployment
 - **Pull requests**: Code quality checks and testing
 - **Manual triggers**: For specific deployment needs
 
-#### **CI Pipeline Steps**
+#### **CI Pipeline Steps** (Planned)
 
 1. **Code Quality Checks**
    ```yaml
@@ -213,7 +265,7 @@ Our CI/CD pipeline ensures code quality and automated testing:
 4. **Testing Suite**
    ```yaml
    - name: Run Tests
-     run: npm test
+     run: npm run test:ci
    ```
 
 5. **Deployment**
@@ -222,7 +274,7 @@ Our CI/CD pipeline ensures code quality and automated testing:
      run: vercel --prod
    ```
 
-#### **Quality Gates**
+#### **Quality Gates** (Planned)
 - ✅ **Linting**: ESLint passes with no errors
 - ✅ **Type Checking**: TypeScript compilation successful
 - ✅ **Security**: No high/critical vulnerabilities
@@ -230,20 +282,9 @@ Our CI/CD pipeline ensures code quality and automated testing:
 - ✅ **Tests**: All tests passing
 - ✅ **Performance**: Lighthouse score > 90
 
-#### **Automated Checks**
-- **Code Coverage**: Minimum 80% coverage required
-- **Performance**: Bundle size analysis
-- **Accessibility**: Automated a11y testing
-- **Cross-browser**: Testing on Chrome, Firefox, Safari
-
-#### **Deployment Strategy**
-- **Staging**: Automatic deployment on PR merge to develop
-- **Production**: Manual approval required for main branch
-- **Rollback**: One-click rollback to previous version
-
 ### Local Development Workflow
 
-1. **Pre-commit Hooks**
+1. **Pre-commit Hooks** (Planned)
    ```bash
    # Install pre-commit hooks
    npm run prepare
@@ -261,59 +302,17 @@ Our CI/CD pipeline ensures code quality and automated testing:
    npm run test:watch
    
    # Check code quality
-   npm run lint:fix
+   npm run lint
    ```
 
 3. **Quality Assurance**
    ```bash
    # Run all quality checks
-   npm run quality
+   npm run lint && npm test
    
    # Generate coverage report
    npm run test:coverage
    ```
-
-### Environment Management
-
-#### **Environment Variables**
-```bash
-# Development
-.env.local
-
-# Staging
-.env.staging
-
-# Production
-.env.production
-```
-
-#### **Secrets Management**
-- **GitHub Secrets**: API keys, deployment tokens
-- **Vercel Environment**: Production environment variables
-- **Local Development**: `.env.local` for local secrets
-
-## 🧪 Testing
-
-### Testing Strategy
-- **Unit Tests**: Jest for component testing
-- **Integration Tests**: Testing API interactions
-- **E2E Tests**: Playwright for user workflows
-- **Visual Regression**: Screenshot testing
-
-### Test Commands
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run E2E tests
-npm run test:e2e
-```
 
 ## 📦 Deployment
 
@@ -322,12 +321,12 @@ npm run test:e2e
 - Hot reload enabled
 - Development server on port 3000
 
-### Staging
+### Staging (Planned)
 - Automatic deployment on PR merge
 - Vercel preview deployments
 - Environment-specific testing
 
-### Production
+### Production (Planned)
 - Manual approval required
 - Blue-green deployment strategy
 - Automatic rollback on failure
@@ -360,4 +359,4 @@ npm run test:e2e
 
 **PlaNovo** - Transforming project management with AI-powered automation.
 
-*Last updated: July 2024*
+*Last updated: December 2024*
