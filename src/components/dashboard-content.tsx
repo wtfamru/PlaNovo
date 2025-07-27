@@ -8,7 +8,7 @@ export function DashboardContent() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold font-syne text-planovo-dark">Dashboard</h1>
           <p className="text-planovo-secondary font-syne mt-2">
-            Welcome back! Here's what's happening with your projects.
+            Welcome back! Here&apos;s what&apos;s happening with your projects.
           </p>
         </div>
 

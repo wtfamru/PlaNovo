@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Home, BarChart3, Users, Settings, FileText, Calendar, User, LogOut } from "lucide-react"
+import { Home, BarChart3, Users, Settings, FileText, Calendar, LogOut } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const navigationItems = [

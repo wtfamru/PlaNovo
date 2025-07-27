@@ -9,7 +9,7 @@ export function CTASection() {
           Ready to Upgrade Your Workflow?
         </h2>
         <p className="text-lg font-syne text-planovo-secondary mb-8 max-w-2xl mx-auto">
-          Join forward-thinking teams who are already transforming their project management with PlaNovo's AI-powered
+          Join forward-thinking teams who are already transforming their project management with PlaNovo&apos;s AI-powered
           platform.
         </p>
         <Link href="/login">
