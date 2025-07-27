@@ -57,7 +57,9 @@ PlaNovo is an intelligent, agentic workflow platform designed to be the autopilo
 - **Consistent styling**: Across all pages
 
 ### 🔄 **In Progress**
-- None currently
+- **AI Requirements Analyst**: Conversational UI for SRS generation
+- **Day-to-Day Automation Agents**: Auto-Task Creation, Intelligent Prioritization, Automated Workload Balancing
+- **Reporting & Insights Agent**: Automated digests and summaries
 
 ### 📅 **Planned Features**
 
@@ -175,9 +177,143 @@ src/
 - Ensure responsive design
 - Maintain accessibility standards
 
+## 🔄 Continuous Integration
+
+### GitHub Actions Workflow
+
+Our CI/CD pipeline ensures code quality and automated testing:
+
+#### **Workflow Triggers**
+- **Push to main branch**: Automatic testing and deployment
+- **Pull requests**: Code quality checks and testing
+- **Manual triggers**: For specific deployment needs
+
+#### **CI Pipeline Steps**
+
+1. **Code Quality Checks**
+   ```yaml
+   - name: Lint and Type Check
+     run: |
+       npm run lint
+       npm run type-check
+   ```
+
+2. **Dependency Security**
+   ```yaml
+   - name: Security Audit
+     run: npm audit --audit-level moderate
+   ```
+
+3. **Build Verification**
+   ```yaml
+   - name: Build Application
+     run: npm run build
+   ```
+
+4. **Testing Suite**
+   ```yaml
+   - name: Run Tests
+     run: npm test
+   ```
+
+5. **Deployment**
+   ```yaml
+   - name: Deploy to Vercel
+     run: vercel --prod
+   ```
+
+#### **Quality Gates**
+- ✅ **Linting**: ESLint passes with no errors
+- ✅ **Type Checking**: TypeScript compilation successful
+- ✅ **Security**: No high/critical vulnerabilities
+- ✅ **Build**: Production build successful
+- ✅ **Tests**: All tests passing
+- ✅ **Performance**: Lighthouse score > 90
+
+#### **Automated Checks**
+- **Code Coverage**: Minimum 80% coverage required
+- **Performance**: Bundle size analysis
+- **Accessibility**: Automated a11y testing
+- **Cross-browser**: Testing on Chrome, Firefox, Safari
+
+#### **Deployment Strategy**
+- **Staging**: Automatic deployment on PR merge to develop
+- **Production**: Manual approval required for main branch
+- **Rollback**: One-click rollback to previous version
+
+### Local Development Workflow
+
+1. **Pre-commit Hooks**
+   ```bash
+   # Install pre-commit hooks
+   npm run prepare
+   
+   # Run checks before commit
+   npm run pre-commit
+   ```
+
+2. **Development Commands**
+   ```bash
+   # Start development with hot reload
+   npm run dev
+   
+   # Run tests in watch mode
+   npm run test:watch
+   
+   # Check code quality
+   npm run lint:fix
+   ```
+
+3. **Quality Assurance**
+   ```bash
+   # Run all quality checks
+   npm run quality
+   
+   # Generate coverage report
+   npm run test:coverage
+   ```
+
+### Environment Management
+
+#### **Environment Variables**
+```bash
+# Development
+.env.local
+
+# Staging
+.env.staging
+
+# Production
+.env.production
+```
+
+#### **Secrets Management**
+- **GitHub Secrets**: API keys, deployment tokens
+- **Vercel Environment**: Production environment variables
+- **Local Development**: `.env.local` for local secrets
+
 ## 🧪 Testing
 
-*Testing framework to be implemented*
+### Testing Strategy
+- **Unit Tests**: Jest for component testing
+- **Integration Tests**: Testing API interactions
+- **E2E Tests**: Playwright for user workflows
+- **Visual Regression**: Screenshot testing
+
+### Test Commands
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run E2E tests
+npm run test:e2e
+```
 
 ## 📦 Deployment
 
@@ -186,8 +322,16 @@ src/
 - Hot reload enabled
 - Development server on port 3000
 
+### Staging
+- Automatic deployment on PR merge
+- Vercel preview deployments
+- Environment-specific testing
+
 ### Production
-*Deployment configuration to be implemented*
+- Manual approval required
+- Blue-green deployment strategy
+- Automatic rollback on failure
+- Performance monitoring
 
 ## 🤝 Contributing
 
@@ -196,6 +340,13 @@ src/
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+### Pull Request Guidelines
+- ✅ All CI checks must pass
+- ✅ Code review required
+- ✅ Tests must be included
+- ✅ Documentation updated
+- ✅ No breaking changes
 
 ## 📄 License
 
