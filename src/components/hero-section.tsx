@@ -16,7 +16,7 @@ export function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/login">
+            <Link href="/auth">
               <Button
                 size="lg"
                 className="bg-planovo-primary text-planovo-dark hover:bg-planovo-accent font-syne font-semibold px-8 py-3 text-lg"
@@ -24,7 +24,7 @@ export function HeroSection() {
                 Request a Demo
               </Button>
             </Link>
-            <Link href="/login">
+            <Link href="/auth">
               <button className="font-syne text-planovo-dark hover:text-planovo-secondary underline underline-offset-4 font-medium text-lg">
                 Sign Up for Free
               </button>

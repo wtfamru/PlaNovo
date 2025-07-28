@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 
 export function Navigation() {
   return (
@@ -21,42 +22,46 @@ export function Navigation() {
                 Features
               </a>
               <a
-                href="#pricing"
-                className="font-syne text-planovo-dark hover:text-planovo-secondary px-3 py-2 text-sm font-medium transition-colors"
-              >
-                Pricing
-              </a>
-              <a
-                href="#contact"
+                href="#footer"
                 className="font-syne text-planovo-dark hover:text-planovo-secondary px-3 py-2 text-sm font-medium transition-colors"
               >
                 Contact
               </a>
-              <Link href="/login">
-                <Button variant="outline" className="font-syne font-medium border-planovo-light text-planovo-dark hover:bg-planovo-light">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/login">
-                <Button className="bg-planovo-primary text-planovo-dark hover:bg-planovo-accent font-syne font-medium">
-                  Request a Demo
-                </Button>
-              </Link>
+              <SignedOut>
+                <Link href="/auth">
+                  <Button variant="outline" className="font-syne font-medium border-planovo-light text-planovo-dark hover:bg-planovo-light">
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/auth">
+                  <Button className="bg-planovo-primary text-planovo-dark hover:bg-planovo-accent font-syne font-medium">
+                    Sign Up
+                  </Button>
+                </Link>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </div>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-            <Link href="/login">
-              <Button variant="outline" className="font-syne font-medium border-planovo-light text-planovo-dark hover:bg-planovo-light text-sm">
-                Login
-              </Button>
-            </Link>
-            <Link href="/login">
-              <Button className="bg-planovo-primary text-planovo-dark hover:bg-planovo-accent font-syne font-medium text-sm">
-                Request a Demo
-              </Button>
-            </Link>
+            <SignedOut>
+              <Link href="/auth">
+                <Button variant="outline" className="font-syne font-medium border-planovo-light text-planovo-dark hover:bg-planovo-light text-sm">
+                  Login
+                </Button>
+              </Link>
+              <Link href="/auth">
+                <Button className="bg-planovo-primary text-planovo-dark hover:bg-planovo-accent font-syne font-medium text-sm">
+                  Sign Up
+                </Button>
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </div>
       </div>

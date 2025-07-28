@@ -1,8 +1,7 @@
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
-import { LoginForm } from "@/components/login-form"
+import { SignUp } from "@clerk/nextjs";
+import Link from "next/link";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Column - Background Pattern */}
@@ -32,7 +31,7 @@ export default function LoginPage() {
         <div className="absolute top-1/3 right-1/4 w-32 h-32 bg-gradient-to-br from-planovo-accent/30 to-transparent rounded-full"></div>
       </div>
 
-      {/* Right Column - Login Form */}
+      {/* Right Column - Sign Up Form */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-md w-full space-y-8">
           {/* Mobile Logo and Back Link */}
@@ -45,20 +44,36 @@ export default function LoginPage() {
                 href="/" 
                 className="inline-flex items-center text-sm font-syne text-planovo-secondary hover:text-planovo-dark transition-colors"
               >
-                <ArrowLeft className="w-4 h-4 mr-1" />
-                Back to Home
+                ← Back to Home
               </Link>
             </div>
           </div>
 
           <div>
-            <h2 className="text-3xl font-bold font-syne text-planovo-dark text-center">Welcome Back</h2>
-            <p className="mt-2 text-center font-syne text-planovo-secondary">Sign in to your account to continue</p>
+            <h2 className="text-3xl font-bold font-syne text-planovo-dark text-center">Create Your Account</h2>
+            <p className="mt-2 text-center font-syne text-planovo-secondary">Join PlaNovo and start piloting your projects</p>
           </div>
 
-          <LoginForm />
+          <SignUp 
+            signInUrl="/login"
+            appearance={{
+              elements: {
+                formButtonPrimary: "bg-planovo-primary hover:bg-planovo-accent text-planovo-dark font-syne font-semibold py-2 px-4 rounded-md transition-colors",
+                card: "shadow-none",
+                headerTitle: "hidden",
+                headerSubtitle: "hidden",
+                socialButtonsBlockButton: "bg-white border border-planovo-light text-planovo-dark hover:bg-planovo-light font-syne font-medium",
+                formFieldInput: "font-syne border-planovo-light focus:border-planovo-primary focus:ring-planovo-primary",
+                formFieldLabel: "font-syne text-planovo-dark font-medium",
+                footerActionLink: "font-syne font-medium text-planovo-dark hover:text-planovo-secondary transition-colors",
+                footerAction: "font-syne text-planovo-secondary",
+                dividerLine: "bg-planovo-light",
+                dividerText: "font-syne text-planovo-secondary",
+              },
+            }}
+          />
         </div>
       </div>
     </div>
-  )
-}
+  );
+} 

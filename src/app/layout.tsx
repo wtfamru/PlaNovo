@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Outfit, Syne } from "next/font/google"
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css"
 
 const outfit = Outfit({
@@ -27,13 +28,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body 
-        className={`${outfit.variable} ${syne.variable} antialiased`}
-        suppressHydrationWarning={true}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body 
+          className={`${outfit.variable} ${syne.variable} antialiased`}
+          suppressHydrationWarning={true}
+        >
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

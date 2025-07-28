@@ -12,7 +12,7 @@ export function CTASection() {
           Join forward-thinking teams who are already transforming their project management with PlaNovo&apos;s AI-powered
           platform.
         </p>
-        <Link href="/login">
+        <Link href="/auth">
           <Button
             size="lg"
             className="bg-planovo-primary text-planovo-dark hover:bg-planovo-accent font-syne font-semibold px-8 py-3 text-lg"
