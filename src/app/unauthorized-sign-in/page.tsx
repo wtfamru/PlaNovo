@@ -1,6 +1,6 @@
 "use client"
 
-import { UnauthorizedSignIn } from "@clerk/nextjs"
+import { SignIn } from "@clerk/nextjs"
 import Link from "next/link"
 
 export default function UnauthorizedSignInPage() {
@@ -56,7 +56,8 @@ export default function UnauthorizedSignInPage() {
             <p className="mt-2 text-center font-syne text-planovo-secondary">Verify your identity to continue</p>
           </div>
 
-          <UnauthorizedSignIn 
+          <SignIn 
+            signUpUrl="/signup"
             appearance={{
               elements: {
                 formButtonPrimary: "bg-planovo-primary hover:bg-planovo-accent text-planovo-dark font-syne font-semibold py-2 px-4 rounded-md transition-colors",
