@@ -5,6 +5,16 @@ import * as RechartsPrimitive from "recharts"
 
 import { cn } from "@/lib/utils"
 
+// Tooltip payload type for recharts
+export type TooltipPayload = {
+  name: string;
+  value: number | string;
+  color?: string;
+  dataKey?: string;
+  payload: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
 
@@ -104,14 +114,21 @@ const ChartTooltip = RechartsPrimitive.Tooltip
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-    React.ComponentProps<"div"> & {
-      hideLabel?: boolean
-      hideIndicator?: boolean
-      indicator?: "line" | "dot" | "dashed"
-      nameKey?: string
-      labelKey?: string
-    }
+  {
+    active?: boolean;
+    payload?: TooltipPayload[];
+    className?: string;
+    indicator?: "line" | "dot";
+    hideLabel?: boolean;
+    hideIndicator?: boolean;
+    label?: string;
+    labelFormatter?: (value: unknown, payload: TooltipPayload[]) => React.ReactNode;
+    labelClassName?: string;
+    formatter?: (value: unknown, name: string, item: TooltipPayload, index: number, payload: TooltipPayload) => React.ReactNode;
+    color?: string;
+    nameKey?: string;
+    labelKey?: string;
+  }
 >(
   (
     {
@@ -128,20 +145,6 @@ const ChartTooltipContent = React.forwardRef<
       color,
       nameKey,
       labelKey,
-    }: {
-      active?: boolean
-      payload?: unknown[]
-      className?: string
-      indicator?: "dot" | "line"
-      hideLabel?: boolean
-      hideIndicator?: boolean
-      label?: string
-      labelFormatter?: (value: unknown, payload: unknown[]) => React.ReactNode
-      labelClassName?: string
-      formatter?: (value: unknown, name: string, item: unknown, index: number, payload: unknown) => React.ReactNode
-      color?: string
-      nameKey?: string
-      labelKey?: string
     },
     ref
   ) => {
@@ -213,7 +216,7 @@ const ChartTooltipContent = React.forwardRef<
                 )}
               >
                 {formatter && item?.value !== undefined && item.name ? (
-                  formatter(item.value, item.name, item, index, item.payload)
+                  formatter(item.value, item.name, item, index, item)
                 ) : (
                   <>
                     {itemConfig?.icon ? (
@@ -226,9 +229,6 @@ const ChartTooltipContent = React.forwardRef<
                             {
                               "h-2.5 w-2.5": indicator === "dot",
                               "w-1": indicator === "line",
-                              "w-0 border-[1.5px] border-dashed bg-transparent":
-                                indicator === "dashed",
-                              "my-0.5": nestLabel && indicator === "dashed",
                             }
                           )}
                           style={
@@ -274,11 +274,12 @@ const ChartLegend = RechartsPrimitive.Legend
 
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-      hideIcon?: boolean
-      nameKey?: string
-    }
+  React.ComponentProps<"div"> & {
+    hideIcon?: boolean;
+    payload?: TooltipPayload[];
+    verticalAlign?: "top" | "bottom";
+    nameKey?: string;
+  }
 >(
   (
     { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
