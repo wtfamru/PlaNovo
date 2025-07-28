@@ -34,7 +34,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold font-syne text-planovo-dark mb-4">1. Acceptance of Terms</h2>
               <p className="font-syne leading-relaxed">
-                By accessing and using PlaNovo's services, you accept and agree to be bound by the terms and provision of this agreement. 
+                By accessing and using PlaNovo&apos;s services, you accept and agree to be bound by the terms and provision of this agreement. 
                 If you do not agree to abide by the above, please do not use this service.
               </p>
             </section>
@@ -42,22 +42,22 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold font-syne text-planovo-dark mb-4">2. Use License</h2>
               <p className="font-syne leading-relaxed mb-4">
-                Permission is granted to temporarily download one copy of the materials (information or software) on PlaNovo's website for personal, 
+                Permission is granted to temporarily download one copy of the materials (information or software) on PlaNovo&apos;s website for personal, 
                 non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
               </p>
               <ul className="list-disc pl-6 space-y-2 font-syne">
                 <li>modify or copy the materials</li>
                 <li>use the materials for any commercial purpose or for any public display (commercial or non-commercial)</li>
-                <li>attempt to decompile or reverse engineer any software contained on PlaNovo's website</li>
+                <li>attempt to decompile or reverse engineer any software contained on PlaNovo&apos;s website</li>
                 <li>remove any copyright or other proprietary notations from the materials</li>
-                <li>transfer the materials to another person or "mirror" the materials on any other server</li>
+                <li>transfer the materials to another person or &quot;mirror&quot; the materials on any other server</li>
               </ul>
             </section>
 
             <section>
               <h2 className="text-2xl font-bold font-syne text-planovo-dark mb-4">3. Disclaimer</h2>
               <p className="font-syne leading-relaxed">
-                The materials on PlaNovo's website are provided on an 'as is' basis. PlaNovo makes no warranties, expressed or implied, 
+                The materials on PlaNovo&apos;s website are provided on an &apos;as is&apos; basis. PlaNovo makes no warranties, expressed or implied, 
                 and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of 
                 merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
               </p>
@@ -67,7 +67,7 @@ export default function TermsPage() {
               <h2 className="text-2xl font-bold font-syne text-planovo-dark mb-4">4. Limitations</h2>
               <p className="font-syne leading-relaxed">
                 In no event shall PlaNovo or its suppliers be liable for any damages (including, without limitation, damages for loss of data 
-                or profit, or due to business interruption) arising out of the use or inability to use the materials on PlaNovo's website, 
+                or profit, or due to business interruption) arising out of the use or inability to use the materials on PlaNovo&apos;s website, 
                 even if PlaNovo or a PlaNovo authorized representative has been notified orally or in writing of the possibility of such damage.
               </p>
             </section>
@@ -75,7 +75,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold font-syne text-planovo-dark mb-4">5. Accuracy of Materials</h2>
               <p className="font-syne leading-relaxed">
-                The materials appearing on PlaNovo's website could include technical, typographical, or photographic errors. 
+                The materials appearing on PlaNovo&apos;s website could include technical, typographical, or photographic errors. 
                 PlaNovo does not warrant that any of the materials on its website are accurate, complete or current. 
                 PlaNovo may make changes to the materials contained on its website at any time without notice.
               </p>
@@ -85,7 +85,7 @@ export default function TermsPage() {
               <h2 className="text-2xl font-bold font-syne text-planovo-dark mb-4">6. Links</h2>
               <p className="font-syne leading-relaxed">
                 PlaNovo has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. 
-                The inclusion of any link does not imply endorsement by PlaNovo of the site. Use of any such linked website is at the user's own risk.
+                The inclusion of any link does not imply endorsement by PlaNovo of the site. Use of any such linked website is at the user&apos;s own risk.
               </p>
             </section>
 
