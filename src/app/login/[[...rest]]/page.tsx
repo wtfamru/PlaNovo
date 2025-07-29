@@ -16,6 +16,8 @@ export default function SignInPage() {
           <SignIn 
             signUpUrl="/signup"
             redirectUrl="/dashboard"
+            routing="path"
+            path="/login"
             appearance={{
               elements: {
                 formButtonPrimary: "bg-planovo-primary hover:bg-planovo-accent text-planovo-dark font-syne font-semibold py-2 px-4 rounded-md transition-colors",
@@ -34,6 +36,8 @@ export default function SignInPage() {
                 alert: "border-planovo-light bg-planovo-light/50",
                 alertText: "font-syne text-planovo-dark",
                 alertIcon: "text-planovo-secondary",
+                formFieldInputShowPasswordButton: "text-planovo-secondary hover:text-planovo-dark",
+                formFieldInputShowPasswordButtonIcon: "text-planovo-secondary",
               },
             }}
           />
