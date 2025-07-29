@@ -20,12 +20,6 @@ export default function SignUpPage() {
             path="/signup"
             afterSignInUrl="/dashboard"
             afterSignUpUrl="/dashboard"
-            initialValues={{
-              emailAddress: "",
-              password: "",
-              firstName: "",
-              lastName: "",
-            }}
             appearance={{
               elements: {
                 formButtonPrimary: "bg-planovo-primary hover:bg-planovo-accent text-planovo-dark font-syne font-semibold py-2 px-4 rounded-md transition-colors",
@@ -49,7 +43,6 @@ export default function SignUpPage() {
                 formFieldInputShowPasswordButtonText: "text-planovo-secondary",
               },
             }}
-            signUpUrl="/signup"
           />
         </div>
       </div>
