@@ -1,9 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { Home, BarChart3, Users, Settings, FileText, Calendar } from "lucide-react"
-import { useClerk, useUser, UserButton } from "@clerk/nextjs"
+import { useUser, UserButton } from "@clerk/nextjs"
 
 const navigationItems = [
   { name: "Dashboard", icon: Home, href: "/dashboard", active: true },
@@ -16,18 +15,7 @@ const navigationItems = [
 
 export function DashboardSidebar() {
   const [activeItem, setActiveItem] = useState("Dashboard")
-  const router = useRouter()
-  const { signOut } = useClerk()
   const { user, isLoaded } = useUser()
-
-  const handleLogout = async () => {
-    try {
-      await signOut()
-      router.push("/")
-    } catch (error) {
-      console.error("Logout failed:", error)
-    }
-  }
 
   // Get user display name
   const getUserDisplayName = () => {

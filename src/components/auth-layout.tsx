@@ -1,9 +1,7 @@
 "use client"
 
-import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
 
 interface AuthLayoutProps {
   children: React.ReactNode
@@ -12,11 +10,9 @@ interface AuthLayoutProps {
 export function AuthLayout({ children }: AuthLayoutProps) {
   const pathname = usePathname()
   const router = useRouter()
-  const [isNavigating, setIsNavigating] = useState(false)
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault()
-    setIsNavigating(true)
     
     // Animate out the current page
     const container = document.querySelector('.auth-container') as HTMLElement
