@@ -1,6 +1,17 @@
+"use client"
+
 import { DashboardCard } from "@/components/dashboard-card"
+import { useUser } from "@clerk/nextjs"
 
 export function DashboardContent() {
+  const { user, isLoaded } = useUser()
+
+  // Get user display name for welcome message
+  const getUserDisplayName = () => {
+    if (!user) return "there"
+    return user.firstName || user.fullName || "there"
+  }
+
   return (
     <div className="flex-1 overflow-auto">
       <div className="p-8">
@@ -8,7 +19,7 @@ export function DashboardContent() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold font-syne text-planovo-dark">Dashboard</h1>
           <p className="text-planovo-secondary font-syne mt-2">
-            Welcome back! Here&apos;s what&apos;s happening with your projects.
+            Welcome back, {isLoaded ? getUserDisplayName() : "there"}! Here&apos;s what&apos;s happening with your projects.
           </p>
         </div>
 

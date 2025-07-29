@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Home, BarChart3, Users, Settings, FileText, Calendar, LogOut } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Home, BarChart3, Users, Settings, FileText, Calendar } from "lucide-react"
+import { useClerk, useUser, UserButton } from "@clerk/nextjs"
 
 const navigationItems = [
   { name: "Dashboard", icon: Home, href: "/dashboard", active: true },
@@ -17,12 +17,22 @@ const navigationItems = [
 export function DashboardSidebar() {
   const [activeItem, setActiveItem] = useState("Dashboard")
   const router = useRouter()
+  const { signOut } = useClerk()
+  const { user, isLoaded } = useUser()
 
-  const handleLogout = () => {
-    // Here you would typically clear authentication tokens
-    console.log("Logging out...")
-    // Redirect to login page
-    router.push("/login")
+  const handleLogout = async () => {
+    try {
+      await signOut()
+      router.push("/")
+    } catch (error) {
+      console.error("Logout failed:", error)
+    }
+  }
+
+  // Get user display name
+  const getUserDisplayName = () => {
+    if (!user) return "User"
+    return user.fullName || user.firstName || user.emailAddresses[0]?.emailAddress || "User"
   }
 
   return (
@@ -54,24 +64,32 @@ export function DashboardSidebar() {
         </ul>
       </nav>
 
-      {/* User Avatar */}
+      {/* User Section - UserButton on left, name on right */}
       <div className="p-4 border-t border-planovo-secondary/20">
         <div className="flex items-center space-x-3">
-          <Avatar className="w-10 h-10">
-            <AvatarImage src="/placeholder.svg?height=40&width=40" alt="User" />
-            <AvatarFallback className="bg-planovo-primary text-planovo-dark font-syne font-medium">JD</AvatarFallback>
-          </Avatar>
+          {/* UserButton on the left */}
+          <UserButton 
+            appearance={{
+              elements: {
+                userButtonAvatarBox: "w-10 h-10",
+                userButtonTrigger: "focus:shadow-none p-1 rounded hover:bg-white/10 transition-colors",
+                userButtonPopoverCard: "shadow-xl border border-planovo-light bg-white",
+                userButtonPopoverActionButton: "font-syne text-planovo-dark hover:bg-planovo-light",
+                userButtonPopoverActionButtonText: "font-syne",
+                userButtonPopoverFooter: "border-t border-planovo-light",
+                userButtonPopoverUserPreview: "font-syne",
+                userButtonPopoverUserPreviewMainIdentifier: "font-syne font-medium text-planovo-dark",
+                userButtonPopoverUserPreviewSecondaryIdentifier: "font-syne text-planovo-secondary",
+              },
+            }}
+          />
+          
+          {/* User name on the right */}
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-syne font-medium text-white truncate">John Doe</p>
-            <p className="text-xs font-syne text-white/70 truncate">john@company.com</p>
+            <p className="text-sm font-syne font-medium text-white truncate">
+              {isLoaded ? getUserDisplayName() : "Loading..."}
+            </p>
           </div>
-          <button 
-            onClick={handleLogout}
-            className="text-white/70 hover:text-white transition-colors"
-            title="Logout"
-          >
-            <LogOut className="w-4 h-4" />
-          </button>
         </div>
       </div>
     </div>

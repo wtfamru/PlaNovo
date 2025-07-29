@@ -9,16 +9,16 @@ jest.mock('@clerk/nextjs', () => ({
 }))
 
 describe('Navigation', () => {
-  it('renders the PlaNovo logo', () => {
+  it('renders the PlaNovo logo for both signed in and signed out states', () => {
     render(<Navigation />)
-    expect(screen.getByText('PlaNovo')).toBeInTheDocument()
+    // Both signed-in and signed-out states render the logo, so we should find multiple instances
+    expect(screen.getAllByText('PlaNovo')).toHaveLength(2)
   })
 
-  it('renders navigation links', () => {
+  it('renders navigation links for signed out users', () => {
     render(<Navigation />)
     expect(screen.getByText('Features')).toBeInTheDocument()
     expect(screen.getByText('Contact')).toBeInTheDocument()
-    // Pricing was removed, so we don't test for it
   })
 
   it('renders login and sign up buttons for signed out users', () => {
@@ -29,8 +29,15 @@ describe('Navigation', () => {
     expect(screen.getAllByText('Login')).toHaveLength(2)
   })
 
-  it('renders signed out state correctly', () => {
+  it('renders both signed in and signed out states correctly', () => {
     render(<Navigation />)
-    expect(screen.getAllByTestId('signed-out')).toHaveLength(2) // Desktop and mobile versions
+    // Both states are rendered simultaneously in the test environment
+    expect(screen.getAllByTestId('signed-out')).toHaveLength(3) // Desktop, mobile, and logo sections
+    expect(screen.getAllByTestId('signed-in')).toHaveLength(3) // Desktop, mobile, and logo sections
+  })
+
+  it('renders user button for signed in users', () => {
+    render(<Navigation />)
+    expect(screen.getAllByTestId('user-button')).toHaveLength(2) // Desktop and mobile versions
   })
 }) 

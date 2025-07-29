@@ -8,26 +8,33 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold font-outfit text-planovo-dark hover:text-planovo-secondary transition-colors">
-              PlaNovo
-            </Link>
+            <SignedIn>
+              <Link href="/dashboard" className="text-2xl font-bold font-outfit text-planovo-dark hover:text-planovo-secondary transition-colors">
+                PlaNovo
+              </Link>
+            </SignedIn>
+            <SignedOut>
+              <Link href="/" className="text-2xl font-bold font-outfit text-planovo-dark hover:text-planovo-secondary transition-colors">
+                PlaNovo
+              </Link>
+            </SignedOut>
           </div>
 
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              <a
-                href="#features"
-                className="font-syne text-planovo-dark hover:text-planovo-secondary px-3 py-2 text-sm font-medium transition-colors"
-              >
-                Features
-              </a>
-              <a
-                href="#footer"
-                className="font-syne text-planovo-dark hover:text-planovo-secondary px-3 py-2 text-sm font-medium transition-colors"
-              >
-                Contact
-              </a>
               <SignedOut>
+                <a
+                  href="#features"
+                  className="font-syne text-planovo-dark hover:text-planovo-secondary px-3 py-2 text-sm font-medium transition-colors"
+                >
+                  Features
+                </a>
+                <a
+                  href="#footer"
+                  className="font-syne text-planovo-dark hover:text-planovo-secondary px-3 py-2 text-sm font-medium transition-colors"
+                >
+                  Contact
+                </a>
                 <Link href="/login">
                   <Button variant="outline" className="font-syne font-medium border-planovo-light text-planovo-dark hover:bg-planovo-light">
                     Login
@@ -40,7 +47,18 @@ export function Navigation() {
                 </Link>
               </SignedOut>
               <SignedIn>
-                <UserButton />
+                <UserButton 
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: "w-8 h-8",
+                      userButtonTrigger: "focus:shadow-none",
+                      userButtonPopoverCard: "shadow-lg border border-planovo-light",
+                      userButtonPopoverActionButton: "font-syne text-planovo-dark hover:bg-planovo-light",
+                      userButtonPopoverActionButtonText: "font-syne",
+                      userButtonPopoverFooter: "border-t border-planovo-light",
+                    },
+                  }}
+                />
               </SignedIn>
             </div>
           </div>
@@ -60,7 +78,18 @@ export function Navigation() {
               </Link>
             </SignedOut>
             <SignedIn>
-              <UserButton />
+              <UserButton 
+                appearance={{
+                  elements: {
+                    userButtonAvatarBox: "w-8 h-8",
+                    userButtonTrigger: "focus:shadow-none",
+                    userButtonPopoverCard: "shadow-lg border border-planovo-light",
+                    userButtonPopoverActionButton: "font-syne text-planovo-dark hover:bg-planovo-light",
+                    userButtonPopoverActionButtonText: "font-syne",
+                    userButtonPopoverFooter: "border-t border-planovo-light",
+                  },
+                }}
+              />
             </SignedIn>
           </div>
         </div>
