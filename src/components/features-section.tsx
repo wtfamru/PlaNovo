@@ -35,7 +35,30 @@ export function FeaturesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <div key={index} className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div 
+              key={index} 
+              className="card bg-white rounded-lg p-8 shadow-sm cursor-pointer"
+              style={{
+                boxSizing: 'border-box',
+                width: '100%',
+                height: 'auto',
+                minHeight: '254px',
+                background: 'rgba(255, 255, 255, 0.95)',
+                border: '1px solid white',
+                boxShadow: '12px 17px 51px rgba(0, 0, 0, 0.22)',
+                backdropFilter: 'blur(6px)',
+                borderRadius: '17px',
+                textAlign: 'center',
+                transition: 'all 0.5s',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                userSelect: 'none',
+                fontWeight: 'bolder',
+                color: 'black'
+              }}
+            >
               <div className="flex items-center justify-center w-12 h-12 bg-planovo-primary rounded-lg mb-6">
                 <feature.icon className="w-6 h-6 text-planovo-dark" />
               </div>

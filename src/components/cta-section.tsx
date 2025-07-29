@@ -1,5 +1,4 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { AnimatedButton } from "@/components/animated-button"
 
 export function CTASection() {
   return (
@@ -12,14 +11,9 @@ export function CTASection() {
           Join forward-thinking teams who are already transforming their project management with PlaNovo&apos;s AI-powered
           platform.
         </p>
-        <Link href="/auth">
-          <Button
-            size="lg"
-            className="bg-planovo-primary text-planovo-dark hover:bg-planovo-accent font-syne font-semibold px-8 py-3 text-lg"
-          >
-            Request a Demo
-          </Button>
-        </Link>
+        <div className="flex justify-center">
+          <AnimatedButton href="/signup" />
+        </div>
       </div>
     </section>
   )

@@ -28,12 +28,12 @@ export function Navigation() {
                 Contact
               </a>
               <SignedOut>
-                <Link href="/auth">
+                <Link href="/login">
                   <Button variant="outline" className="font-syne font-medium border-planovo-light text-planovo-dark hover:bg-planovo-light">
                     Login
                   </Button>
                 </Link>
-                <Link href="/auth">
+                <Link href="/signup">
                   <Button className="bg-planovo-primary text-planovo-dark hover:bg-planovo-accent font-syne font-medium">
                     Sign Up
                   </Button>
@@ -48,12 +48,12 @@ export function Navigation() {
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
             <SignedOut>
-              <Link href="/auth">
+              <Link href="/login">
                 <Button variant="outline" className="font-syne font-medium border-planovo-light text-planovo-dark hover:bg-planovo-light text-sm">
                   Login
                 </Button>
               </Link>
-              <Link href="/auth">
+              <Link href="/signup">
                 <Button className="bg-planovo-primary text-planovo-dark hover:bg-planovo-accent font-syne font-medium text-sm">
                   Sign Up
                 </Button>
