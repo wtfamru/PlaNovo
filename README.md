@@ -398,54 +398,107 @@ Our CI/CD pipeline will ensure code quality and automated testing:
   - [ ] Configure connection strings
   - [ ] Set up environment variables
 
-- [ ] **Database Schema Design**
+- [ ] **Database Schema Design** ✅ **UPDATED - FINAL STRUCTURE**
+  
+  **Complete Database Schema for PlaNovo** - Definitive blueprint incorporating all architectural decisions.
+
   ```sql
-  -- Users table (extends Clerk user data)
+  -- Workspaces (top-level entity representing a company or organization)
+  CREATE TABLE workspaces (
+    id TEXT PRIMARY KEY, -- e.g., 'ws_...'
+    clerk_organization_id TEXT UNIQUE NOT NULL, -- Link to Clerk Organization
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT now()
+  );
+
+  -- Users (global user profiles, synced from Clerk)
   CREATE TABLE users (
-    id UUID PRIMARY KEY,
-    clerk_user_id VARCHAR(255) UNIQUE NOT NULL,
+    id TEXT PRIMARY KEY, -- User ID from Clerk (e.g., 'user_...')
     email VARCHAR(255) UNIQUE NOT NULL,
-    first_name VARCHAR(100),
-    last_name VARCHAR(100),
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    job_title VARCHAR(255), -- Can be NULL, user sets in profile
+    avatar_url TEXT, -- URL to image hosted by Clerk
+    created_at TIMESTAMPTZ DEFAULT now()
   );
 
-  -- Organizations table
-  CREATE TABLE organizations (
-    id UUID PRIMARY KEY,
-    clerk_org_id VARCHAR(255) UNIQUE NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    slug VARCHAR(255) UNIQUE NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
+  -- Workspace Members (links users to workspaces with roles)
+  CREATE TABLE workspace_members (
+    user_id TEXT REFERENCES users(id),
+    workspace_id TEXT REFERENCES workspaces(id),
+    role VARCHAR(50) NOT NULL, -- e.g., 'admin', 'team_lead', 'employee'
+    PRIMARY KEY (user_id, workspace_id)
   );
 
-  -- Projects table
+  -- Projects (container for sprints, epics, and tasks)
   CREATE TABLE projects (
-    id UUID PRIMARY KEY,
-    organization_id UUID REFERENCES organizations(id),
+    id TEXT PRIMARY KEY, -- e.g., 'proj_...'
+    workspace_id TEXT REFERENCES workspaces(id),
     name VARCHAR(255) NOT NULL,
-    description TEXT,
-    status VARCHAR(50) DEFAULT 'active',
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT now()
   );
 
-  -- Tasks table
-  CREATE TABLE tasks (
-    id UUID PRIMARY KEY,
-    project_id UUID REFERENCES projects(id),
-    assigned_to UUID REFERENCES users(id),
-    title VARCHAR(255) NOT NULL,
+  -- Project Members (links users to specific projects)
+  CREATE TABLE project_members (
+    user_id TEXT REFERENCES users(id),
+    project_id TEXT REFERENCES projects(id),
+    PRIMARY KEY (user_id, project_id)
+  );
+
+  -- Epics (high-level strategic initiatives within a project)
+  CREATE TABLE epics (
+    id TEXT PRIMARY KEY, -- e.g., 'epic_...'
+    project_id TEXT REFERENCES projects(id),
+    title TEXT NOT NULL,
     description TEXT,
-    status VARCHAR(50) DEFAULT 'todo',
-    priority VARCHAR(20) DEFAULT 'medium',
+    created_at TIMESTAMPTZ DEFAULT now()
+  );
+
+  -- Sprints (time-boxed work cycles within a project)
+  CREATE TABLE sprints (
+    id TEXT PRIMARY KEY, -- e.g., 'sprint_...'
+    project_id TEXT REFERENCES projects(id),
+    name VARCHAR(255) NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    created_at TIMESTAMPTZ DEFAULT now()
+  );
+
+  -- Tasks (core unit of work, linked to project, optionally sprint and epic)
+  CREATE TABLE tasks (
+    id TEXT PRIMARY KEY, -- e.g., 'task_...'
+    project_id TEXT REFERENCES projects(id),
+    sprint_id TEXT REFERENCES sprints(id), -- Can be NULL
+    epic_id TEXT REFERENCES epics(id), -- Can be NULL
+    title TEXT NOT NULL,
+    description TEXT,
+    status VARCHAR(50) NOT NULL,
+    priority VARCHAR(50),
     story_points INTEGER,
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
+    assignee_id TEXT REFERENCES users(id), -- Can be NULL
+    due_date DATE,
+    created_at TIMESTAMPTZ DEFAULT now()
+  );
+
+  -- Attachments (files attached to tasks)
+  CREATE TABLE attachments (
+    id TEXT PRIMARY KEY, -- e.g., 'att_...'
+    task_id TEXT REFERENCES tasks(id),
+    uploaded_by_id TEXT REFERENCES users(id),
+    file_name VARCHAR(255) NOT NULL,
+    file_url TEXT NOT NULL, -- URL to file in Firebase Storage
+    file_type VARCHAR(100), -- e.g., 'image/png'
+    created_at TIMESTAMPTZ DEFAULT now()
   );
   ```
+
+  **Key Architectural Decisions:**
+  - **TEXT Primary Keys**: Using descriptive prefixes (ws_, user_, proj_, etc.) for better debugging
+  - **Workspace-centric**: All entities flow from workspace → project → tasks
+  - **Flexible Task Assignment**: Tasks can be linked to sprints and epics optionally
+  - **Role-based Access**: Workspace members have defined roles for permissions
+  - **File Storage**: Attachments table for Firebase Storage integration
+  - **Clerk Integration**: Direct links to Clerk user and organization IDs
 
 #### **Phase 2: Backend API**
 - [ ] **FastAPI Server Setup**
