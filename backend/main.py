@@ -1,9 +1,10 @@
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from sqlmodel import Session
 
 from database import get_session
+from webhooks import handle_webhook_event
 
 # Load environment variables
 load_dotenv()
@@ -58,6 +59,14 @@ async def test_database(session: Session = Depends(get_session)):
             "status": "error",
             "message": f"Database connection failed: {str(e)}"
         }
+
+
+@app.post("/api/webhooks/clerk")
+async def clerk_webhook(
+    request: Request, session: Session = Depends(get_session)
+):
+    """Handle Clerk webhook events"""
+    return handle_webhook_event(request, session)
 
 
 if __name__ == "__main__":
