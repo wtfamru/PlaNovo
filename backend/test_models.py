@@ -2,17 +2,8 @@
 """
 Test script to verify database models are correctly defined
 """
-from models import (
-    Workspaces,
-    Users,
-    WorkspaceMembers,
-    Projects,
-    ProjectMembers,
-    Epics,
-    Sprints,
-    Tasks,
-    Attachments,
-)
+from models import (Attachments, Epics, ProjectMembers, Projects, Sprints,
+                    Tasks, Users, WorkspaceMembers, Workspaces)
 
 
 def test_models():

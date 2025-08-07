@@ -4,17 +4,8 @@ Database initialization script for PlaNovo
 Creates all tables in the Vercel Postgres database
 """
 from database import create_db_and_tables
-from models import (  # noqa: F401
-    Workspaces,
-    Users,
-    WorkspaceMembers,
-    Projects,
-    ProjectMembers,
-    Epics,
-    Sprints,
-    Tasks,
-    Attachments,
-)
+from models import (Attachments, Epics, ProjectMembers, Projects,  # noqa: F401
+                    Sprints, Tasks, Users, WorkspaceMembers, Workspaces)
 
 
 def main():
